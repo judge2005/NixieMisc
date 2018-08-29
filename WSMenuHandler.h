@@ -8,16 +8,27 @@
 #ifndef LIBRARIES_NIXIEMISC_WSMENUHANDLER_H_
 #define LIBRARIES_NIXIEMISC_WSMENUHANDLER_H_
 
+#include <WString.h>
 #include <WSHandler.h>
 #include <UPS.h>
 
 class WSMenuHandler : public WSHandler {
 public:
-	WSMenuHandler(UPS& ups) : ups(ups) {}
+	WSMenuHandler(String **items) : items(items) { }
 	virtual void handle(AsyncWebSocketClient *client, char *data);
+	void setItems(String **items);
+
+	static String clockMenu;
+	static String ledsMenu;
+	static String extraMenu;
+	static String presetsMenu;
+	static String upsMenu;
+	static String alexaMenu;
+	static String infoMenu;
+	static String presetNamesMenu;
 
 private:
-	UPS& ups;
+	String **items;
 };
 
 

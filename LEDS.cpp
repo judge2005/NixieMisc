@@ -65,3 +65,7 @@ void LEDRGB::ledDisplay(const byte hue, const byte saturation,
 	show();
 }
 
+void LEDRGB::ledDisplay(const byte pixel) {
+	setPixelColor(pixel, r, g, b);
+}
+

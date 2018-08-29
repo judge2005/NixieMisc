@@ -17,10 +17,11 @@ void WSUPSHandler::handle(AsyncWebSocketClient *client, char *data) {
 
 	char *sep = "";
 	if (currentSetName != 0) {
+		json.concat(sep);
 		json.concat("\"set_icon_");
 		json.concat(name);
 		json.concat("\":");
-		json.concat(currentSetItem->toJSON());
+		json.concat(currentSetName->toJSON());
 		sep=",";
 	}
 	BaseConfigItem *currentConfig = rootConfig.get(currentSetKey.c_str());
