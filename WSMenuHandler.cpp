@@ -10,10 +10,11 @@ String WSMenuHandler::clockMenu = "{\"1\": { \"url\" : \"clock.html\", \"title\"
 String WSMenuHandler::ledsMenu = "{\"2\": { \"url\" : \"leds.html\", \"title\" : \"LEDs\" }}";
 String WSMenuHandler::extraMenu = "{\"3\": { \"url\" : \"extra.html\", \"title\" : \"Extra\" }}";
 String WSMenuHandler::presetsMenu = "{\"4\": { \"url\" : \"presets.html\", \"title\" : \"Presets\", \"noNav\" : true }}";
-String WSMenuHandler::upsMenu = "{\"7\": { \"url\" : \"ups.html\", \"title\" : \"UPS\" }}";
-String WSMenuHandler::alexaMenu = "{\"7\": { \"url\" : \"alexa.html\", \"title\" : \"Alexa\" }}";
 String WSMenuHandler::infoMenu = "{\"5\": { \"url\" : \"info.html\", \"title\" : \"Info\" }}";
 String WSMenuHandler::presetNamesMenu = "{\"6\": { \"url\" : \"preset_names.html\", \"title\" : \"Preset Names\", \"noNav\" : true }}";
+String WSMenuHandler::upsMenu = "{\"7\": { \"url\" : \"ups.html\", \"title\" : \"UPS\" }}";
+String WSMenuHandler::alexaMenu = "{\"7\": { \"url\" : \"alexa.html\", \"title\" : \"Alexa\" }}";
+String WSMenuHandler::syncMenu = "{\"8\": { \"url\" : \"sync.html\", \"title\" : \"Sync\" }}";
 
 void WSMenuHandler::handle(AsyncWebSocketClient *client, char *data) {
 	String json("{\"type\":\"sv.init.menu\", \"value\":[");
