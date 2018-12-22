@@ -22,6 +22,7 @@ struct LEDRGB : public Adafruit_NeoPixel {
 
 	void setLedColorHSV(const byte h, const byte s, const byte v);
 	void ledDisplay(const byte hue, const byte saturation, const byte brightness);
+	void ledDisplay(const byte pixel);
 };
 
 #endif /* LIBRARIES_NIXIEMISC_LEDS_H_ */
