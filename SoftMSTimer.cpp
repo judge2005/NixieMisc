@@ -14,7 +14,7 @@ void SoftMSTimer::loop() {
 		TimerInfo *info = timers[i];
 		if (info->enabled
 				&& (info->lastCallTick == 0
-						|| nowMs > info->lastCallTick + info->interval)) {
+						|| nowMs - info->lastCallTick >= info->interval)) {
 			info->lastCallTick = nowMs;
 			info->callback();
 		}
