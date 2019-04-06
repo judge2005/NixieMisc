@@ -8,7 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_LEDS_H_
 #define LIBRARIES_NIXIEMISC_LEDS_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
 
 struct LEDRGB : public Adafruit_NeoPixel {

@@ -5,7 +5,7 @@
  *      Author: mpand
  */
 
-#include <arduino.h>
+#include <Arduino.h>
 #include <SoftMSTimer.h>
 
 void SoftMSTimer::loop() {

@@ -8,7 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_ROTARYENCODER_H_
 #define LIBRARIES_NIXIEMISC_ROTARYENCODER_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 
 class RotaryEncoder {
 public:

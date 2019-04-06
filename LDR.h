@@ -8,7 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_LDR_H_
 #define LIBRARIES_NIXIEMISC_LDR_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 
 struct LDR {
 	LDR(const byte adcPin, unsigned long sampleTime) : adcPin(adcPin), sampleTime(sampleTime) {

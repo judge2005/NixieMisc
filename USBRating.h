@@ -8,7 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_USBRATING_H_
 #define LIBRARIES_NIXIEMISC_USBRATING_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 #include <SafeOLED.h>
 
 class USBRating {

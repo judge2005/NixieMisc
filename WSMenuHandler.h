@@ -10,7 +10,7 @@
 
 #include <WString.h>
 #include <WSHandler.h>
-#include <UPS.h>
+// #include <UPS.h>
 
 class WSMenuHandler : public WSHandler {
 public:
