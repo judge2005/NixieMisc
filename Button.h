@@ -8,7 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_BUTTON_H_
 #define LIBRARIES_NIXIEMISC_BUTTON_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 
 class Button {
 public:
