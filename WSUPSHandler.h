@@ -7,7 +7,7 @@
 
 #ifndef LIBRARIES_NIXIEMISC_WSUPSHANDLER_H_
 #define LIBRARIES_NIXIEMISC_WSUPSHANDLER_H_
-
+#ifdef ESP8266
 #include <ConfigItem.h>
 #include <WSHandler.h>
 #include <UPS.h>
@@ -30,5 +30,5 @@ private:
 	UPS &ups;
 	USBRating &usbRating;
 };
-
+#endif
 #endif /* LIBRARIES_NIXIEMISC_WSUPSHANDLER_H_ */

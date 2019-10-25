@@ -4,10 +4,10 @@
  *  Created on: Apr 17, 2018
  *      Author: mpand
  */
-#ifdef ESP8266
-#include <WSUPSHandler.h>
+#ifdef ESP32
+#include <WSEventsHandler.h>
 
-void WSUPSHandler::handle(AsyncWebSocketClient *client, char *data) {
+void WSEventsHandler::handle(AsyncWebSocketClient *client, char *data) {
 	String json("{\"type\":\"sv.init.");
 	json.concat(name);
 	json.concat("\", \"value\":{");
@@ -31,9 +31,15 @@ void WSUPSHandler::handle(AsyncWebSocketClient *client, char *data) {
 		json.concat(clockConfig->toJSON(true));
 	}
 
-	json.concat(", \"power\":\"" + ups.getPowerString() + "\"");
-	json.concat(", \"usb_rating\":\"" + usbRating.getString() + "\"");
-	json.concat(", \"charge_rate_txt\":\"" + ups.getRateString() + "\"");
+	json.concat(", \"event_menus\": { \"tick_name\": ");
+	json.concat(ticks.getList());
+	json.concat(", \"chime_name\": ");
+	json.concat(chimes.getList());
+	json.concat(", \"strike_name\": ");
+	json.concat(strikes.getList());
+	json.concat(", \"alarm_name\": ");
+	json.concat(alarms.getList());
+	json.concat("}");
 
 	json.concat("}}");
 	client->text(json);

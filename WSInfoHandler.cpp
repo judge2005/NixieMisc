@@ -16,12 +16,16 @@ void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
 	root["type"] = "sv.init.clock";
 
 	JsonObject& value = root.createNestedObject("value");
+#ifndef ESP32
 	value["esp_boot_version"] = ESP.getBootVersion();
+#endif
 	value["esp_free_heap"] = ESP.getFreeHeap();
 	value["esp_sketch_size"] = ESP.getSketchSize();
 	value["esp_sketch_space"] = ESP.getFreeSketchSpace();
+#ifndef ESP32
 	value["esp_flash_size"] = ESP.getFlashChipRealSize();
 	value["esp_chip_id"] = String(ESP.getChipId(), HEX);;
+#endif
 	value["wifi_ip_address"] = WiFi.localIP().toString();
 	value["wifi_mac_address"] = WiFi.macAddress();
 	value["wifi_ssid"] = WiFi.SSID();

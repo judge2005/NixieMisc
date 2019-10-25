@@ -8,6 +8,7 @@
 #ifndef LIBRARIES_NIXIEMISC_WSMENUHANDLER_H_
 #define LIBRARIES_NIXIEMISC_WSMENUHANDLER_H_
 
+#include <Arduino.h>
 #include <WString.h>
 #include <WSHandler.h>
 // #include <UPS.h>
@@ -24,6 +25,7 @@ public:
 	static String presetsMenu;
 	static String upsMenu;
 	static String alexaMenu;
+	static String eventsMenu;
 	static String syncMenu;
 	static String infoMenu;
 	static String presetNamesMenu;

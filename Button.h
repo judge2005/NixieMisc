@@ -22,7 +22,7 @@ protected:
 	virtual byte getPinValue() = 0;
 
 	int lastButtonValue = 0;
-	unsigned long changeTime = 0;
+	unsigned long closedTime = 0;
 	bool wasPressed = false;
 };
 

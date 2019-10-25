@@ -8,19 +8,20 @@
 #include <Button.h>
 
 bool Button::state() {
-	int buttonValue = getPinValue();
+	int buttonValue = getPinValue();	// Goes high when closed
 
 	unsigned long now = millis();
 
-	// Has to stay at that value for 50ms
-	if (buttonValue != lastButtonValue) {
-		if (now - changeTime > 50)
-			lastButtonValue = buttonValue;
+	if (!(now - closedTime > 50)) {
+		// Still in blackout period
+		return true;
+	} else if (buttonValue) {
+		closedTime = now;
 
-		changeTime = now;
+		return true;
+	} else {
+		return false;
 	}
-
-	return lastButtonValue;
 }
 
 bool Button::clicked() {
