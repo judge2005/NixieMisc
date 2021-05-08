@@ -19,6 +19,10 @@ public:
 		delayMs = delayMinutes * 60000;
 	}
 
+	unsigned long getDelayMs() {
+		return delayMs;
+	}
+
 	void setSrc(byte src) {
 		this->src = src;
 	}

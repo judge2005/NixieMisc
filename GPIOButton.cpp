@@ -8,5 +8,5 @@
 #include <GPIOButton.h>
 
 byte GPIOButton::getPinValue() {
-	return digitalRead(pin);
+	return digitalRead(pin) == pulldown;
 }

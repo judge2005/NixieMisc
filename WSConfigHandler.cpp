@@ -38,6 +38,12 @@ void WSConfigHandler::handle(AsyncWebSocketClient *client, char *data) {
 		json.concat(sep);
 		json.concat(clockConfig->toJSON(true));
 	}
+
+	if (cbFunc != NULL) {
+		json.concat(sep);
+		json.concat(cbFunc());
+	}
+
 	json.concat("}}");
 	client->text(json);
 }

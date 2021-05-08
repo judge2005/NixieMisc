@@ -13,14 +13,25 @@
 
 class WSConfigHandler: public WSHandler {
 public:
+	typedef String (*CbFunc)();
+
 	WSConfigHandler(BaseConfigItem& rootConfig, const char *name) :
-			rootConfig(rootConfig),
-			name(name) {
+		cbFunc(NULL),
+		rootConfig(rootConfig),
+		name(name) {
+	}
+
+	WSConfigHandler(BaseConfigItem& rootConfig, const char *name, CbFunc cbFunc) :
+		cbFunc(cbFunc),
+		rootConfig(rootConfig),
+		name(name) {
 	}
 
 	virtual void handle(AsyncWebSocketClient *client, char *data);
 
 private:
+	CbFunc cbFunc;
+
 	BaseConfigItem& rootConfig;
 	const char *name;
 };

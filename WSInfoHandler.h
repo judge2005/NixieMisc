@@ -9,13 +9,55 @@
 #define LIBRARIES_NIXIEMISC_WSINFOHANDLER_H_
 
 #include <WSHandler.h>
+#include <BlankTimeMonitor.h>
 
 class WSInfoHandler : public WSHandler {
 public:
-	WSInfoHandler(String& ssid) : ssid(ssid) {}
+	typedef void (*CbFunc)();
+
+	WSInfoHandler(CbFunc cbFunc) : cbFunc(cbFunc), pBlankingMonitor(NULL)	{
+	}
+
 	virtual void handle(AsyncWebSocketClient *client, char *data);
+
+	void setFailedCount(const String& failedCount) {
+		this->failedCount = failedCount;
+	}
+
+	void setLastFailedMessage(const String& lastFailedMessage) {
+		this->lastFailedMessage = lastFailedMessage;
+	}
+
+	void setLastUpdateTime(const String& lastUpdateTime) {
+		this->lastUpdateTime = lastUpdateTime;
+	}
+
+	void setBlankingMonitor(BlankTimeMonitor* blankingMonitor) {
+		pBlankingMonitor = blankingMonitor;
+	}
+
+	void setSsid(const String& ssid) {
+		this->ssid = ssid;
+	}
+
+	void setHostname(const String& hostname) {
+		this->hostname = hostname;
+	}
+
+	void setRevision(const String& revision) {
+		this->revision = revision;
+	}
+
 private:
-	String& ssid;
+	CbFunc cbFunc;
+
+	BlankTimeMonitor *pBlankingMonitor;
+	String ssid;
+	String lastUpdateTime;
+	String lastFailedMessage;
+	String failedCount;
+	String hostname;
+	String revision;
 };
 
 

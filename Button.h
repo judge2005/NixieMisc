@@ -23,6 +23,7 @@ protected:
 
 	int lastButtonValue = 0;
 	unsigned long closedTime = 0;
+	unsigned long clickTime = 0;
 	bool wasPressed = false;
 };
 
