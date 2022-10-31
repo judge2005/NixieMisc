@@ -51,6 +51,10 @@ byte LDR::getNormalizedBrightness(const bool dimming) {
 }
 
 byte LDR::getAdjustedBrightness(const bool dimming, const byte scale, const bool on) {
+	return getAdjustedBrightness(dimming, scale, 5, on);
+}
+
+byte LDR::getAdjustedBrightness(const bool dimming, const byte scale, const byte min, const bool on) {
 	// Scale normalized brightness to range 0..255
 
 	// Always call the normalized brightness routine, to keep track of environment.
@@ -65,7 +69,7 @@ byte LDR::getAdjustedBrightness(const bool dimming, const byte scale, const bool
 		// Scale brightness by ledScale
 		brightness = ((int)brightness) * scale / 255;
 
-		brightness = map(brightness, 0, 255, 5, 255);
+		brightness = map(brightness, 0, 255, min, 255);
 	} else {
 		brightness = 0;
 	}

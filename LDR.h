@@ -22,6 +22,7 @@ public:
 
 	byte getNormalizedBrightness(const bool dimming);
 	byte getAdjustedBrightness(const bool dimming, const byte scale, const bool on=true);
+	byte getAdjustedBrightness(const bool dimming, const byte scale, const byte min, const bool on=true);
 	void reset() {
 		sensorLDRSmoothed = (maxLDR - minLDR) / 2;
 	}
