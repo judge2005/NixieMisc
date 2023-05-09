@@ -7,6 +7,7 @@
 
 #ifndef LIBRARIES_NIXIEMISC_LEDS_H_
 #define LIBRARIES_NIXIEMISC_LEDS_H_
+#if defined(ESP8266) && !defined(NO_UPS)
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
@@ -24,5 +25,5 @@ struct LEDRGB : public Adafruit_NeoPixel {
 	void ledDisplay(const byte hue, const byte saturation, const byte brightness);
 	void ledDisplay(const byte pixel);
 };
-
+#endif
 #endif /* LIBRARIES_NIXIEMISC_LEDS_H_ */

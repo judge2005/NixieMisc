@@ -7,7 +7,7 @@
 
 #ifndef LIBRARIES_NIXIEMISC_WSUPSHANDLER_H_
 #define LIBRARIES_NIXIEMISC_WSUPSHANDLER_H_
-#ifdef ESP8266
+#if defined(ESP8266) && !defined(NO_UPS)
 #include <ConfigItem.h>
 #include <WSHandler.h>
 #include <UPS.h>

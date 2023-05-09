@@ -34,57 +34,62 @@ public:
 		}
 	}
 
+	void calculateValues(int pos16, int width, int bucket, byte minValue, byte maxValue) {
+		int i = pos16 / levels; // convert from pos to raw pixel number
+		int frac = (pos16 & 0x0F) * levels; // extract the 'factional' part of the position
+		if (minValue != 0) {
+			frac = frac * ((maxValue+1) - minValue) / (maxValue+1);
+		}
+		// brightness of the first pixel in the bar is 1.0 - (fractional part of position)
+		// e.g., if the light bar starts drawing at pixel "57.9", then
+		// pixel #57 should only be lit at 10% brightness, because only 1/10th of it
+		// is "in" the light bar:
+		//
+		//                       57.9 . . . . . . . . . . . . . . . . . 61.9
+		//                        v                                      v
+		//  ---+---56----+---57----+---58----+---59----+---60----+---61----+---62---->
+		//     |         |        X|XXXXXXXXX|XXXXXXXXX|XXXXXXXXX|XXXXXXXX |
+		//  ---+---------+---------+---------+---------+---------+---------+--------->
+		//                   10%       100%      100%      100%      90%
+		//
+		// the fraction we get is in 16ths and needs to be converted to 256ths,
+		// so we multiply by 16.  We subtract from 255 because we want a high
+		// fraction (e.g. 0.9) to turn into a low brightness (e.g. 0.1)
+		uint8_t firstPixelValue = maxValue - frac;
+
+		// if the bar is of integer length, the last pixel's brightness is the
+		// reverse of the first pixel's; see illustration above.
+		uint8_t lastPixelValue = frac + minValue;
+
+		// For a bar of width "N", the code has to consider "N+1" pixel positions,
+		// which is why the "<= width" below instead of "< width".
+
+		for (int j = 0; j < numLEDs; j++) {
+			values[bucket][j] = minValue;
+		}
+
+		uint8_t value;
+		for (int n = 0; n <= width; n++) {
+			if (n == 0) {
+				// first pixel in the bar
+				value = firstPixelValue;
+			} else if (n == width) {
+				// last pixel in the bar
+				value = lastPixelValue;
+			} else {
+				// middle pixels
+				value = maxValue;
+			}
+
+			values[bucket][i] = value;
+			i++;
+			if (i == numLEDs)
+				i = 0; // wrap around
+		}
+	}
+
 	void calculateValues(int pos16, int width, int bucket, byte minValue) {
-		  int i = pos16 / levels; // convert from pos to raw pixel number
-		  int frac = (pos16 & 0x0F) * levels; // extract the 'factional' part of the position
-		  if (minValue != 0) {
-			  frac = frac * (256 - minValue) / 256;
-		  }
-		  // brightness of the first pixel in the bar is 1.0 - (fractional part of position)
-		  // e.g., if the light bar starts drawing at pixel "57.9", then
-		  // pixel #57 should only be lit at 10% brightness, because only 1/10th of it
-		  // is "in" the light bar:
-		  //
-		  //                       57.9 . . . . . . . . . . . . . . . . . 61.9
-		  //                        v                                      v
-		  //  ---+---56----+---57----+---58----+---59----+---60----+---61----+---62---->
-		  //     |         |        X|XXXXXXXXX|XXXXXXXXX|XXXXXXXXX|XXXXXXXX |
-		  //  ---+---------+---------+---------+---------+---------+---------+--------->
-		  //                   10%       100%      100%      100%      90%
-		  //
-		  // the fraction we get is in 16ths and needs to be converted to 256ths,
-		  // so we multiply by 16.  We subtract from 255 because we want a high
-		  // fraction (e.g. 0.9) to turn into a low brightness (e.g. 0.1)
-		  uint8_t firstPixelValue = 255 - frac;
-
-		  // if the bar is of integer length, the last pixel's brightness is the
-		  // reverse of the first pixel's; see illustration above.
-		  uint8_t lastPixelValue  = frac + minValue;
-
-		  // For a bar of width "N", the code has to consider "N+1" pixel positions,
-		  // which is why the "<= width" below instead of "< width".
-
-		  for (int j=0; j < numLEDs; j++) {
-			  values[bucket][j] = minValue;
-		  }
-
-		  uint8_t value;
-		  for(int n = 0; n <= width; n++) {
-		    if( n == 0) {
-		      // first pixel in the bar
-		      value = firstPixelValue;
-		    } else if( n == width ) {
-		      // last pixel in the bar
-		      value = lastPixelValue;
-		    } else {
-		      // middle pixels
-		      value = 255;
-		    }
-
-		    values[bucket][i] = value;
-		    i++;
-		    if( i == numLEDs) i = 0; // wrap around
-		  }
+		calculateValues(pos16, width, bucket, minValue, 255);
 	}
 
 	uint8_t getValue(int bucket, int index) {

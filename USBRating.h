@@ -7,6 +7,7 @@
 
 #ifndef LIBRARIES_NIXIEMISC_USBRATING_H_
 #define LIBRARIES_NIXIEMISC_USBRATING_H_
+#if defined(ESP8266) && !defined(NO_UPS)
 
 #include <Arduino.h>
 #include <SafeOLED.h>
@@ -19,5 +20,5 @@ public:
 	virtual void debug(SafeOLED& oled) = 0;
 	virtual bool isHigh() = 0;
 };
-
+#endif
 #endif /* LIBRARIES_NIXIEMISC_USBRATING_H_ */

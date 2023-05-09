@@ -15,6 +15,10 @@ const double LDR::maxLDR = 1023;
 
 const double LDR::minLDR = 0;
 
+byte LDR::getNormalizedBrightness(const bool dimming, const byte min) {
+	return map(getNormalizedBrightness(dimming), 5, 100, min, 100);
+}
+
 byte LDR::getNormalizedBrightness(const bool dimming) {
 	static const double sensorSmoothCountLDR = 40;
 	static double adjustedLDR = sensorLDRSmoothed;
@@ -27,6 +31,10 @@ byte LDR::getNormalizedBrightness(const bool dimming) {
 		lastUpdate = nowMs;
 
 		int adc = analogRead(adcPin);
+		if (inv) {
+			adc = 1024 - adc;
+		}
+
 //		if ((debugTime++ % 100) == 0) {
 //			Serial.print("adc: ");
 //			Serial.println(adc);
@@ -48,6 +56,10 @@ byte LDR::getNormalizedBrightness(const bool dimming) {
 	}
 
 	return map(adjustedLDR, minLDR, maxLDR, 5, 100);
+}
+
+void LDR::invert(bool inv) {
+	this->inv = inv;
 }
 
 byte LDR::getAdjustedBrightness(const bool dimming, const byte scale, const bool on) {

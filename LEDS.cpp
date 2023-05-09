@@ -4,6 +4,7 @@
  *  Created on: Apr 15, 2018
  *      Author: mpand
  */
+#if defined(ESP8266) && !defined(NO_UPS)
 
 #include <LEDs.h>
 
@@ -68,4 +69,4 @@ void LEDRGB::ledDisplay(const byte hue, const byte saturation,
 void LEDRGB::ledDisplay(const byte pixel) {
 	setPixelColor(pixel, r, g, b);
 }
-
+#endif

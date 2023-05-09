@@ -4,7 +4,7 @@
  *  Created on: Apr 17, 2018
  *      Author: mpand
  */
-#ifdef ESP8266
+#if defined(ESP8266) && !defined(NO_UPS)
 #include <WSUPSHandler.h>
 
 void WSUPSHandler::handle(AsyncWebSocketClient *client, char *data) {

@@ -20,7 +20,9 @@ public:
 		adcPin(adcPin), sampleTime(sampleTime), squared(squared), sensorLDRSmoothed((maxLDR - minLDR) / 2) {
 	}
 
+	void invert(bool inv);
 	byte getNormalizedBrightness(const bool dimming);
+	byte getNormalizedBrightness(const bool dimming, const byte min);
 	byte getAdjustedBrightness(const bool dimming, const byte scale, const bool on=true);
 	byte getAdjustedBrightness(const bool dimming, const byte scale, const byte min, const bool on=true);
 	void reset() {
@@ -31,6 +33,7 @@ private:
 	byte adcPin;
 	unsigned long sampleTime;
 	bool squared;
+	bool inv = false;
 	double sensorLDRSmoothed;
 
 	static const double minLDR;
