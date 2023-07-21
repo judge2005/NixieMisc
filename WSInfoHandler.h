@@ -24,6 +24,18 @@ public:
 		this->failedCount = failedCount;
 	}
 
+	void setBrightness(const String& brightness) {
+		this->brightness = brightness;
+	}
+
+	void setClockOn(const String& clockOn) {
+		this->clockOn = clockOn;
+	}
+
+	void setTriggered(const String& triggered) {
+		this->triggered = triggered;
+	}
+
 	void setLastFailedMessage(const String& lastFailedMessage) {
 		this->lastFailedMessage = lastFailedMessage;
 	}
@@ -53,6 +65,9 @@ private:
 
 	BlankTimeMonitor *pBlankingMonitor;
 	String ssid;
+	String brightness;
+	String clockOn;
+	String triggered;
 	String lastUpdateTime;
 	String lastFailedMessage;
 	String failedCount;

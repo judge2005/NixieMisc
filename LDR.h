@@ -21,8 +21,7 @@ public:
 	}
 
 	void invert(bool inv);
-	byte getNormalizedBrightness(const bool dimming);
-	byte getNormalizedBrightness(const bool dimming, const byte min);
+	byte getNormalizedBrightness(const bool dimming, const byte min=5);
 	byte getAdjustedBrightness(const bool dimming, const byte scale, const bool on=true);
 	byte getAdjustedBrightness(const bool dimming, const byte scale, const byte min, const bool on=true);
 	void reset() {

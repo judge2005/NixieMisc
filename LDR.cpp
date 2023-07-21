@@ -8,18 +8,14 @@
 #include <LDR.h>
 
 #ifdef ESP32
-const double LDR::maxLDR = 4095;
+const double LDR::maxLDR = 4096;
 #else
-const double LDR::maxLDR = 1023;
+const double LDR::maxLDR = 1024;
 #endif
 
 const double LDR::minLDR = 0;
 
 byte LDR::getNormalizedBrightness(const bool dimming, const byte min) {
-	return map(getNormalizedBrightness(dimming), 5, 100, min, 100);
-}
-
-byte LDR::getNormalizedBrightness(const bool dimming) {
 	static const double sensorSmoothCountLDR = 40;
 	static double adjustedLDR = sensorLDRSmoothed;
 	static unsigned long lastUpdate = 0;
@@ -31,21 +27,26 @@ byte LDR::getNormalizedBrightness(const bool dimming) {
 		lastUpdate = nowMs;
 
 		int adc = analogRead(adcPin);
-		if (inv) {
-			adc = 1024 - adc;
-		}
-
 //		if ((debugTime++ % 100) == 0) {
 //			Serial.print("adc: ");
 //			Serial.println(adc);
 //		}
 
+		if (inv) {
+			adc = maxLDR - adc;
+		}
+
 		double sensorDiff = adc - sensorLDRSmoothed;
+
 		sensorLDRSmoothed += (sensorDiff / sensorSmoothCountLDR);
 		sensorLDRSmoothed = constrain(sensorLDRSmoothed, minLDR, maxLDR);
 
 		if (squared) {
-			adjustedLDR = sensorLDRSmoothed * sensorLDRSmoothed / maxLDR;
+			if (inv) {
+				adjustedLDR = maxLDR - (maxLDR-sensorLDRSmoothed) * (maxLDR-sensorLDRSmoothed) / maxLDR;
+			} else {
+				adjustedLDR = sensorLDRSmoothed * sensorLDRSmoothed / maxLDR;
+			}
 		} else {
 			adjustedLDR = sensorLDRSmoothed;
 		}
@@ -55,7 +56,7 @@ byte LDR::getNormalizedBrightness(const bool dimming) {
 		return 100;
 	}
 
-	return map(adjustedLDR, minLDR, maxLDR, 5, 100);
+	return map(adjustedLDR, minLDR, maxLDR, min, 100);
 }
 
 void LDR::invert(bool inv) {
@@ -76,7 +77,7 @@ byte LDR::getAdjustedBrightness(const bool dimming, const byte scale, const byte
 		brightness = ((int)brightness) * 255 / 100;
 
 		// Now use a square
-		brightness = (long)brightness * (long)brightness / 255L;
+//		brightness = (long)brightness * (long)brightness / 255L;
 
 		// Scale brightness by ledScale
 		brightness = ((int)brightness) * scale / 255;

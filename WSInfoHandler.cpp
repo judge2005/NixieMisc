@@ -49,6 +49,10 @@ void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
 	value["hostname"] = hostname;
 	value["software_revision"] = revision;
 
+	value["brightness"] = brightness;
+	value["triggered"] = triggered;
+	value["clock_on"] = clockOn;
+
 	value["up_time"] = uptime.uptime();
 	value["sync_time"] = lastUpdateTime;
 	value["sync_failed_msg"] = lastFailedMessage;
