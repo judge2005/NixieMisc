@@ -14,12 +14,20 @@ public:
 		init(numBuckets, numLEDs);
 	}
 
+	PixelWave(const int numBuckets, const int numLEDs, int levels) : levels(levels) {
+		init(numBuckets, numLEDs);
+	}
+
 	~PixelWave() {
 		for (int i=0; i<this->numBuckets; i++) {
 			delete[] values[i];
 		}
 
 		delete[] values;
+	}
+
+	int getLevels() {
+		return levels;
 	}
 
 	void reInit(const int numBuckets, const int numLEDs) {
@@ -36,7 +44,7 @@ public:
 
 	void calculateValues(int pos16, int width, int bucket, byte minValue, byte maxValue) {
 		int i = pos16 / levels; // convert from pos to raw pixel number
-		int frac = (pos16 & 0x0F) * levels; // extract the 'factional' part of the position
+		int frac = (pos16 & (levels - 1)); // extract the 'factional' part of the position
 		if (minValue != 0) {
 			frac = frac * ((maxValue+1) - minValue) / (maxValue+1);
 		}
@@ -55,6 +63,8 @@ public:
 		// the fraction we get is in 16ths and needs to be converted to 256ths,
 		// so we multiply by 16.  We subtract from 255 because we want a high
 		// fraction (e.g. 0.9) to turn into a low brightness (e.g. 0.1)
+		frac = frac * ((maxValue + 1) / levels);
+
 		uint8_t firstPixelValue = maxValue - frac;
 
 		// if the bar is of integer length, the last pixel's brightness is the
