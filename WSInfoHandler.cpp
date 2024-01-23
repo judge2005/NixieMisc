@@ -69,14 +69,14 @@ void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
     size_t len = measureJson(root);
 #endif
 
-    AsyncWebSocketMessageBuffer *buffer = new AsyncWebSocketMessageBuffer(len);
+    AsyncWebSocketMessageBuffer buffer(len);
     if (buffer) {
 #ifdef JSON5
-        root.printTo((char *)buffer->get(), len + 1);
+        root.printTo((char *)buffer.get(), len + 1);
 #else
-    	serializeJson(root, (char *)buffer->get(), len + 1);
+    	serializeJson(root, (char *)buffer.get(), len + 1);
 #endif
-        client->text(buffer);
+        client->text(&buffer);
     }
 }
 

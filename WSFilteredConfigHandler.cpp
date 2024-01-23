@@ -4,10 +4,10 @@
  *  Created on: Apr 17, 2018
  *      Author: mpand
  */
-#ifdef ESP32
-#include <WSEventsHandler.h>
 
-void WSEventsHandler::handle(AsyncWebSocketClient *client, char *data) {
+#include <WSFilteredConfigHandler.h>
+
+void WSFilteredConfigHandler::handle(AsyncWebSocketClient *client, char *data) {
 	String json("{\"type\":\"sv.init.");
 	json.concat(name);
 	json.concat("\", \"value\":{");
@@ -24,19 +24,23 @@ void WSEventsHandler::handle(AsyncWebSocketClient *client, char *data) {
 		json.concat(currentSetName->toJSON());
 		sep=",";
 	}
-	BaseConfigItem *currentConfig = rootConfig.get(currentSetKey.c_str());
+	BaseConfigItem *currentConfig = rootConfig.get("tube_type");
+	if (currentConfig) {
+		json.concat(sep);
+		json.concat("\"tube_type\":");
+		json.concat(currentConfig->toJSON());
+		sep=",";
+	}
+
+	currentConfig = rootConfig.get(currentSetKey.c_str());
 	BaseConfigItem *clockConfig = currentConfig->get(name);
 	if (clockConfig != 0) {
 		json.concat(sep);
-		json.concat(clockConfig->toJSON(true));
+		json.concat(clockConfig->toJSON(true, excludes));
 	}
-
-	json.concat(", \"event_menus\": { ");
-	json.concat(listGenerator.getList());
-	json.concat("}");
 
 	json.concat("}}");
 	client->text(json);
 }
-#endif
+
 

@@ -18,13 +18,10 @@ public:
 
 class WSEventsHandler: public WSHandler {
 public:
-	WSEventsHandler(BaseConfigItem& rootConfig, const char *name, ListGenerator& ticks, ListGenerator& chimes, ListGenerator& strikes, ListGenerator& alarms) :
+	WSEventsHandler(BaseConfigItem& rootConfig, const char *name, ListGenerator& listGenerator) :
 		rootConfig(rootConfig),
 		name(name),
-		ticks(ticks),
-		chimes(chimes),
-		strikes(strikes),
-		alarms(alarms)
+		listGenerator(listGenerator)
 	{
 	}
 
@@ -33,10 +30,7 @@ public:
 private:
 	BaseConfigItem& rootConfig;
 	const char *name;
-	ListGenerator &ticks;
-	ListGenerator &chimes;
-	ListGenerator &strikes;
-	ListGenerator &alarms;
+	ListGenerator &listGenerator;
 };
 
 #endif
