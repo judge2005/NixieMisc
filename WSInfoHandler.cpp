@@ -8,6 +8,7 @@
 #include <Uptime.h>
 #include <ArduinoJson.h>
 #include <AsyncWebSocket.h>
+#ifdef ESP32
 extern "C" {
 #include "esp_ota_ops.h"
 #include "esp_image_format.h"
@@ -30,6 +31,7 @@ static uint32_t sketchSize(sketchSize_t response) {
         return data.image_len;
     }
 }
+#endif
 
 void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
 	cbFunc();
