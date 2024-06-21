@@ -26,6 +26,7 @@ public:
 	static String upsMenu;
 	static String alexaMenu;
 	static String eventsMenu;
+	static String mqttMenu;
 	static String syncMenu;
 	static String infoMenu;
 	static String presetNamesMenu;
