@@ -5,7 +5,6 @@
  *      Author: mpand
  */
 #include <WSInfoHandler.h>
-#include <Uptime.h>
 #include <ArduinoJson.h>
 #include <AsyncWebSocket.h>
 #ifdef ESP32
@@ -36,7 +35,6 @@ static uint32_t sketchSize(sketchSize_t response) {
 void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
 	cbFunc();
 
-	static Uptime uptime;
 	const size_t bufferSize = JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(30);
 #ifdef JSON5
 	DynamicJsonBuffer jsonBuffer(bufferSize);
@@ -88,7 +86,7 @@ void WSInfoHandler::handle(AsyncWebSocketClient *client, char *data) {
 	value["triggered"] = triggered;
 	value["clock_on"] = clockOn;
 
-	value["up_time"] = uptime.uptime();
+	value["up_time"] = uptime;
 	value["sync_time"] = lastUpdateTime;
 	value["sync_failed_msg"] = lastFailedMessage;
 	value["sync_failed_cnt"] = failedCount;
