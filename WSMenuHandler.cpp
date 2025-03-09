@@ -15,6 +15,7 @@ String WSMenuHandler::presetNamesMenu = "{\"6\": { \"url\" : \"preset_names.html
 String WSMenuHandler::upsMenu = "{\"7\": { \"url\" : \"ups.html\", \"title\" : \"UPS\" }}";
 String WSMenuHandler::alexaMenu = "{\"7\": { \"url\" : \"alexa.html\", \"title\" : \"Alexa\" }}";
 String WSMenuHandler::eventsMenu = "{\"7\": { \"url\" : \"events.html\", \"title\" : \"Sounds\" }}";
+String WSMenuHandler::mqttMenu = "{\"7\": { \"url\" : \"mqtt.html\", \"title\" : \"Printer\" }}";
 String WSMenuHandler::syncMenu = "{\"8\": { \"url\" : \"sync.html\", \"title\" : \"Network\" }}";
 
 void WSMenuHandler::handle(AsyncWebSocketClient *client, char *data) {
