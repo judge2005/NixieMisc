@@ -4,7 +4,7 @@
  *  Created on: Apr 15, 2018
  *      Author: mpand
  */
-#if defined(ESP8266) && !defined(NO_UPS)
+#if defined(ESP8266)
 
 #include <LEDs.h>
 
