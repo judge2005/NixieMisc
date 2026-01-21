@@ -7,7 +7,7 @@
 
 #ifndef LIBRARIES_NIXIEMISC_LEDS_H_
 #define LIBRARIES_NIXIEMISC_LEDS_H_
-#if defined(ESP8266) && !defined(NO_UPS)
+#if defined(ESP8266)
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
