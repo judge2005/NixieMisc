@@ -8,6 +8,11 @@
 #include <ArduinoJson.h>
 #include <AsyncWebSocket.h>
 #ifdef ESP32
+#include <WiFi.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
+#ifdef ESP32
 extern "C" {
 #include "esp_ota_ops.h"
 #include "esp_image_format.h"
